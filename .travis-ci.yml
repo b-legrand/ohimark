@@ -1,0 +1,31 @@
+language: node_js
+
+node_js:
+   - node # will use latest node
+
+before_script: # commands to run before the build step
+   - npm install
+   - npm install -g --silent @angular/cli
+
+notifications:
+  email: # only receive email when the build status changes (someone broke the build!) 
+    on_failure: change
+    on_success: change   
+
+cache:
+  directories:
+    - "node_modules"
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  - ng build
+
+test:
+  - ng test
+
+deploy:
+  - npm run deploy
