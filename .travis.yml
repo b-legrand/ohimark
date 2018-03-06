@@ -19,7 +19,6 @@ cache:
 stages:
   - build
   - test
-  - deploy
 
 build:
   - ng build
@@ -27,5 +26,3 @@ build:
 test:
   - ng test
 
-deploy:
-  - npm run deploy
