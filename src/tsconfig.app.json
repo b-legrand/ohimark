@@ -1,13 +1,21 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "baseUrl": "./",
     "module": "es2015",
+    "baseUrl": "",
     "types": []
   },
+  "include": [
+    "main.ts",
+    "polyfill.ts"
+  ],
   "exclude": [
-    "test.ts",
     "**/*.spec.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "preserveWhitespaces": true
+  }
 }

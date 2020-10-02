@@ -1,49 +1,28 @@
 import { Component } from '@angular/core';
-import { contentFactory } from './content';
-import * as mermaid from 'mermaid';
+import { ElectronService } from './core/services';
+import { TranslateService } from '@ngx-translate/core';
+import { AppConfig } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public title = 'app';
-  public content:string;
-  public config: any
-  constructor(){
-    this.config = {
-      /**
-       * Reference: http://codemirror.net/doc/manual.html#config
-       */
-      codemirror: {
-        theme: 'eclipse',
-        // keyMap: 'vim',
-        mode: 'gfm',
-      },
-      /**
-       * Reference: marked.js
-       */
-      markdown: {
-  
-      },
-      mermaid: {
-  
-      }
-    };
-    this.content = contentFactory();
-    mermaid.initialize({
-        startOnLoad:false
-    });
-  }
-  handleFocus(event: any) {
-    console.log(event);
-  }
-  handleBlur(event: any) {
-    console.log(event);
-  }
-  handleValueChange(event: any) {
-    console.log(event);
-    this.content = event;
+  constructor(
+    private electronService: ElectronService,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+    console.log('AppConfig', AppConfig);
+
+    if (electronService.isElectron) {
+      console.log(process.env);
+      console.log('Run in electron');
+      console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
+      console.log('NodeJS childProcess', this.electronService.childProcess);
+    } else {
+      console.log('Run in browser');
+    }
   }
 }
